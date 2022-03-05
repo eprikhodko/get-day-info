@@ -46,13 +46,50 @@ const myDateString = myDate.toLocaleDateString('ru', {
 const myDateParts = myDateString.split(' ');
 console.log(myDateParts);
 
+const dayNumber = myDateParts[1];
+const dayName = myDateParts[0];
+const monthName = myDateParts[2];
+const year = myDateParts[3];
+
+function getWeekNumber(day) {
+  console.log(typeof day);
+  console.log(typeof Number(day));
+  // console.log(day > 20)
+  let weekNumber;
+
+  if (day <= 7) {
+    console.log(`1 week`);
+    weekNumber = 1;
+  }
+  if (day > 7 && day <= 14) {
+    console.log(`2 week`);
+    weekNumber = 2;
+  }
+  if (day >= 15 && day <= 21) {
+    console.log(`3 week`);
+    weekNumber = 3;
+  }
+  if (day >= 22 && day <= 28) {
+    console.log(`4 week`);
+    weekNumber = 4;
+  }
+  if (day > 28) {
+    console.log(`5 week`);
+    weekNumber = 5;
+  }
+
+  return weekNumber;
+}
+
+const weekNumber = getWeekNumber(dayNumber);
+
 function capitalizeFirstLetter(str) {
   const capitalized = str[0].toUpperCase() + str.substring(1);
   return capitalized;
 }
 
-const dayName = myDateParts[0];
-
-console.log(`${capitalizeFirstLetter(dayName)}`);
-
-function getWeekNumber(params) {}
+console.log(
+  `${capitalizeFirstLetter(
+    dayName
+  )} ${weekNumber} неделя ${capitalizeFirstLetter(monthName)} ${year} года`
+);
