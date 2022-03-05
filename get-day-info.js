@@ -1,37 +1,58 @@
-// init getDayInfo task
-// let date = new Date("2021-12-15")
+/*  Задача 2. Вывод информации о дате
 
-// console.log(date)
+Необходимо разработать функцию getDayInfo(date), которая возвращает информацию о выбранной дате.
+Результатом функции должен быть форматированный текст:
+<день недели>, <номер недели> неделя <месяц> <год> года
+Пример:
+getDayInfo(“01.01.2022”) // => Суббота, 1 неделя Января 2022 года
+getDayInfo(“15.12.2021”) // => Среда, 3 неделя Декабря 2021 года
 
-// 15.12.2021
-// 2014-04-03
-// const weekDaysNames = ["Понедельник", "Вторник", ""]
+что нужно сделать?
 
-// var dateStr = '05/23/2014';
-const dateString = '04.03.2022';
-const splittedDate = '04.03.2022'.split('.');
-// const splittedDate = dateString.split(".")
-// console.log(splittedDate)
-// console.log(splittedDate[0])
-// const date = new Date(splittedDate[2], splittedDate[1] - 1, splittedDate[0])
+У нас должна быть функция, которая принимает в качестве аргумента строку с датой вида "15.12.2021" 
+далее функция выводит результат вот так:
+getDayInfo(“15.12.2021”) // => Среда, 3 неделя Декабря 2021 года
+вот параметры вывода:
+<день недели>, <номер недели> неделя <месяц> <год> года
+*/
 
-function getDayName(dateStr, locale) {
-  const date = new Date(splittedDate[2], splittedDate[1] - 1, splittedDate[0]);
-  const dayName = date.toLocaleDateString(locale, { weekday: 'long' });
-  return dayName;
-}
-
-const day = getDayName(dateString, 'ru-RU'); // Gives back day name
-console.log(day);
-
-console.log();
-
-const parts = '04.03.2022'.split('.');
+// const dateString = "04.03.2022"
+const dateString = '15.12.2021';
+// сделаем из входящей строки массив из строк
+const parts = dateString.split('.');
 // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
 // January - 0, February - 1, etc.
-const mydate = new Date(parts[2], parts[1] - 1, parts[0]);
-console.log(mydate.toDateString());
-console.log(mydate.getDay());
-// console.log(parts)
+// что мы тут делаем?
+const myDate = new Date(parts[2], parts[1] - 1, parts[0]);
+// console.log(mydate.getDay())
+
+console.log(
+  myDate.toLocaleDateString('ru', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+);
+
+// разобьем строку с датой на отдельные части
+const myDateString = myDate.toLocaleDateString('ru', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const myDateParts = myDateString.split(' ');
+console.log(myDateParts);
+
+function capitalizeFirstLetter(str) {
+  const capitalized = str[0].toUpperCase() + str.substring(1);
+  return capitalized;
+}
+
+const dayName = myDateParts[0];
+
+console.log(`${capitalizeFirstLetter(dayName)}`);
 
 function getWeekNumber(params) {}
