@@ -29,7 +29,7 @@ function getDayInfo(dateString) {
   // сначала разобьем входящую строку на массив из отдельных строк, чтобы можно было передать их конструктору new Date() в правильном порядке
   const parts = dateString.split('.');
 
-  // сохраним части массива в отдельные константы для удобства чтения
+  // сохраним элементы массива в отдельные константы для удобства чтения
   const year = parts[2];
   const month = parts[1];
   const day = parts[0];
@@ -60,7 +60,7 @@ function getDayInfo(dateString) {
   // разделим строку с датой на русском языке на массив из отдельных строк
   const myDateParts = myDateString.split(' ');
 
-  // сохраним части массива в отдельные константы для удобства чтения
+  // сохраним элементы массива в отдельные константы для удобства чтения
   const dayName = myDateParts[0];
   const dayNumber = myDateParts[1];
   const monthName = myDateParts[2];
@@ -68,42 +68,39 @@ function getDayInfo(dateString) {
 
   // получим номер недели в зависимости от числа месяца
   function getWeekNumber(dayNum) {
-    console.log(typeof dayNum);
-    console.log(typeof Number(dayNum));
-    // console.log(day > 20)
     let weekNumber;
 
     if (dayNum <= 7) {
-      console.log(`1 week`);
       weekNumber = 1;
+      return weekNumber;
     }
     if (dayNum > 7 && dayNum <= 14) {
-      console.log(`2 week`);
       weekNumber = 2;
+      return weekNumber;
     }
-    if (dayNum >= 15 && dayNum <= 21) {
-      console.log(`3 week`);
+    if (dayNum > 14 && dayNum <= 21) {
       weekNumber = 3;
+      return weekNumber;
     }
-    if (dayNum >= 22 && dayNum <= 28) {
-      console.log(`4 week`);
+    if (dayNum > 21 && dayNum <= 28) {
       weekNumber = 4;
+      return weekNumber;
     }
     if (dayNum > 28) {
-      console.log(`5 week`);
       weekNumber = 5;
+      return weekNumber;
     }
-
-    return weekNumber;
   }
 
   const weekNumber = getWeekNumber(dayNumber);
 
+  // эта функция делает первую букву строки заглавной
   function capitalizeFirstLetter(str) {
     const capitalized = str[0].toUpperCase() + str.substring(1);
     return capitalized;
   }
 
+  // сформируем отформатированную дату
   const formattedDate = `${capitalizeFirstLetter(
     dayName
   )} ${weekNumber} неделя ${capitalizeFirstLetter(
