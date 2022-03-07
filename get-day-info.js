@@ -16,10 +16,9 @@ getDayInfo(“15.12.2021”) // => Среда, 3 неделя Декабря 202
 <день недели>, <номер недели> неделя <месяц> <год> года
 */
 
-// const dateString = "04.03.2022"
-const datestr = '15.12.2021';
+const dateStr = '15.12.2021';
 
-function getDayInfo(datestring) {
+function getDayInfo(dateString) {
   /* 
   - функция getDayInfo принимает на вход строку, которая содержит дату вот в таком формате: '15.12.2021'
   - далее мы должны на основе этой строки сделать объект Date, чтобы получить доступ к дате и времени и методам управления ими
@@ -28,7 +27,9 @@ function getDayInfo(datestring) {
   */
 
   // сначала разобьем входящую строку на массив из отдельных строк, чтобы можно было передать их конструктору new Date() в правильном порядке
-  const parts = datestring.split('.');
+  const parts = dateString.split('.');
+
+  // сохраним части массива в отдельные константы для удобства чтения
   const year = parts[2];
   const month = parts[1];
   const day = parts[0];
@@ -41,54 +42,54 @@ function getDayInfo(datestring) {
   */
   const myDate = new Date(year, month - 1, day); // myDate сейчас выглядит так: Wed Dec 15 2021
 
-  console.log(
-    myDate.toLocaleDateString('ru', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  );
+  /* 
+  Сейчас дата у нас находится в локали по умолчанию, на английском языке.
+  Чтобы перевести дату на русский язык, используем метод toLocaleString(locales, options), в параметрах которого укажем нужную нам локаль, и передадим объект с опциями. В опциях укажем, как мы хотим отформатировать вывод.
+  */
 
-  // разобьем строку с датой на отдельные части
-  const myDateString = myDate.toLocaleDateString('ru', {
+  const options = {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
+  };
 
+  // получаем строку с датой на русском языке
+  const myDateString = myDate.toLocaleDateString('ru', options); // среда, 15 декабря 2021 г.
+
+  // разделим строку с датой на русском языке на массив из отдельных строк
   const myDateParts = myDateString.split(' ');
-  console.log(myDateParts);
 
-  const dayNumber = myDateParts[1];
+  // сохраним части массива в отдельные константы для удобства чтения
   const dayName = myDateParts[0];
+  const dayNumber = myDateParts[1];
   const monthName = myDateParts[2];
-  const yearNum = myDateParts[3];
+  const yearNumber = myDateParts[3];
 
-  function getWeekNumber(day) {
-    console.log(typeof day);
-    console.log(typeof Number(day));
+  // получим номер недели в зависимости от числа месяца
+  function getWeekNumber(dayNum) {
+    console.log(typeof dayNum);
+    console.log(typeof Number(dayNum));
     // console.log(day > 20)
     let weekNumber;
 
-    if (day <= 7) {
+    if (dayNum <= 7) {
       console.log(`1 week`);
       weekNumber = 1;
     }
-    if (day > 7 && day <= 14) {
+    if (dayNum > 7 && dayNum <= 14) {
       console.log(`2 week`);
       weekNumber = 2;
     }
-    if (day >= 15 && day <= 21) {
+    if (dayNum >= 15 && dayNum <= 21) {
       console.log(`3 week`);
       weekNumber = 3;
     }
-    if (day >= 22 && day <= 28) {
+    if (dayNum >= 22 && dayNum <= 28) {
       console.log(`4 week`);
       weekNumber = 4;
     }
-    if (day > 28) {
+    if (dayNum > 28) {
       console.log(`5 week`);
       weekNumber = 5;
     }
@@ -103,11 +104,13 @@ function getDayInfo(datestring) {
     return capitalized;
   }
 
-  console.log(
-    `${capitalizeFirstLetter(
-      dayName
-    )} ${weekNumber} неделя ${capitalizeFirstLetter(monthName)} ${yearNum} года`
-  );
+  const formattedDate = `${capitalizeFirstLetter(
+    dayName
+  )} ${weekNumber} неделя ${capitalizeFirstLetter(
+    monthName
+  )} ${yearNumber} года`;
+
+  return formattedDate;
 }
 
-getDayInfo(datestr);
+getDayInfo(dateStr);
